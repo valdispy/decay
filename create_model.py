@@ -92,40 +92,39 @@ if __name__ == "__main__":
     
     print('Factor value =', factor)   
     exp_decay = decays.ExponentDecay(learning_rate=BASE_RATE, exp_power=factor)
-	exp_decay_border = decays.ExponentDecay(border_epoch=border_epoch, border_epoch=border_epoch, learning_rate=BASE_RATE, exp_power=factor)
+    exp_decay_border = decays.ExponentDecay(border_epoch=border_epoch, learning_rate=BASE_RATE, exp_power=factor)
 	 
     step_decay = decays.StepDecay(learning_rate=BASE_RATE, step_factor=factor, step_drop=step_drop)
     step_decay_border = decays.StepDecay(border_epoch=border_epoch, learning_rate=BASE_RATE, step_factor=factor, step_drop=step_drop)
    
-    callbacks = LearningRateScheduler(exp_decay_border)
+    callbacks = LearningRateScheduler(step_decay)
     history = model.fit(train_data, epochs=EPOCHS, verbose=1, validation_data=validation_data, callbacks=[callbacks],
                            steps_per_epoch=int(train_number/float(BATCH_SIZE)), validation_steps=int(validation_number/float(BATCH_SIZE)))
             
     history_dict = history.history
-    history_dict.update({'factor' : around(factor,3), 'type': 'exp_decay_border'})
+    history_dict.update({'factor' : around(factor,3), 'type': 'step_decay'})
     plot_rate(history_dict)
-    
-#    Factor value = 0.1
+      
 #    Epoch 1/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.2287 - accuracy: 0.2530 - val_loss: 0.1623 - val_accuracy: 0.2764
+#    379/379 [==============================] - 88s 233ms/step - loss: 0.0285 - accuracy: 0.4471 - val_loss: 0.0118 - val_accuracy: 0.5780
 #    Epoch 2/60
-#    379/379 [==============================] - 23s 61ms/step - loss: 0.0533 - accuracy: 0.3396 - val_loss: 0.0148 - val_accuracy: 0.4853
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0110 - accuracy: 0.6315 - val_loss: 0.0106 - val_accuracy: 0.6089
 #    Epoch 3/60
-#    379/379 [==============================] - 23s 61ms/step - loss: 0.0131 - accuracy: 0.5814 - val_loss: 0.0124 - val_accuracy: 0.5672
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0099 - accuracy: 0.6649 - val_loss: 0.0096 - val_accuracy: 0.6403
 #    Epoch 4/60
-#    379/379 [==============================] - 23s 61ms/step - loss: 0.0118 - accuracy: 0.5999 - val_loss: 0.0113 - val_accuracy: 0.5778
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0092 - accuracy: 0.6880 - val_loss: 0.0091 - val_accuracy: 0.6486
 #    Epoch 5/60
-#    379/379 [==============================] - 23s 61ms/step - loss: 0.0108 - accuracy: 0.6080 - val_loss: 0.0106 - val_accuracy: 0.5853
-#    ...
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0089 - accuracy: 0.6942 - val_loss: 0.0090 - val_accuracy: 0.6511
+#    ...    
 #    Epoch 55/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.0076 - accuracy: 0.7314 - val_loss: 0.0078 - val_accuracy: 0.7004
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0087 - accuracy: 0.7032 - val_loss: 0.0089 - val_accuracy: 0.6579
 #    Epoch 56/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.0076 - accuracy: 0.7314 - val_loss: 0.0078 - val_accuracy: 0.7005
+#    379/379 [==============================] - 23s 62ms/step - loss: 0.0087 - accuracy: 0.7032 - val_loss: 0.0089 - val_accuracy: 0.6579
 #    Epoch 57/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.0076 - accuracy: 0.7315 - val_loss: 0.0078 - val_accuracy: 0.7006
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0087 - accuracy: 0.7032 - val_loss: 0.0089 - val_accuracy: 0.6579
 #    Epoch 58/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.0076 - accuracy: 0.7315 - val_loss: 0.0078 - val_accuracy: 0.7006
+#    379/379 [==============================] - 23s 62ms/step - loss: 0.0087 - accuracy: 0.7032 - val_loss: 0.0089 - val_accuracy: 0.6579
 #    Epoch 59/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.0076 - accuracy: 0.7315 - val_loss: 0.0078 - val_accuracy: 0.7007
+#    379/379 [==============================] - 23s 61ms/step - loss: 0.0087 - accuracy: 0.7032 - val_loss: 0.0089 - val_accuracy: 0.6579
 #    Epoch 60/60
-#    379/379 [==============================] - 23s 62ms/step - loss: 0.0076 - accuracy: 0.7316 - val_loss: 0.0078 - val_accuracy: 0.7007
+#    379/379 [==============================] - 23s 62ms/step - loss: 0.0087 - accuracy: 0.7032 - val_loss: 0.0089 - val_accuracy: 0.6579
